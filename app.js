@@ -4,15 +4,13 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 require("./Clients");
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 
 app.use(bodyParser.json());
 
 const Clients = mongoose.model("clients");
 
-const mongoUri =
-  "mongodb+srv://erncncbk:P8C7ErepckoeelSN@clients-hdipl.mongodb.net/test?retryWrites=true&w=majority";
-
+const mongoUri = process.env.MONGODB_URL;
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -79,5 +77,5 @@ app.post("/update", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log("Server running");
+  console.log("Server running " + port);
 });
